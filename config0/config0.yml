@@ -1,89 +1,77 @@
 global:
-   matchSelectors:
-     aws_base:
-       match_keys:
-         provider: aws
-       match_labels:
-         environment: dev
-         purpose: eval-config0
-         area: network
+   platform: config0-publish:::platform-eval-config0
    metadata:   
-     matchSelectors:
+     selectors:
         vpc_info:
-          match_base: aws_base
-          match_params:
+          matchBase: aws_base_network
+          matchParams:
             must_exists: True
             resource_type: vpc
         public_route_table:
-          match_base: aws_base
-          match_keys:
+          matchBase: aws_base_network
+          matchKeys:
             public_route_table: true
-          match_params:
+          matchParams:
             resource_type: route_table
         private_route_table:
-          match_base: aws_base
-          match_keys:
+          matchBase: aws_base_network
+          matchKeys:
             private_route_table: true
-          match_params:
+          matchParams:
             resource_type: route_table
         private_subnet_info:
-          match_base: aws_base
-          match_keys:
+          matchBase: aws_base_network
+          matchKeys:
             name: private
-          match_params:
+          matchParams:
             resource_type: subnet
         private_subnet_info:
-          match_base: aws_base
-          match_keys:
+          matchBase: aws_base_network
+          matchKeys:
             name: private
-          match_params:
+          matchParams:
             resource_type: subnet
         public_subnet_info:
-          match_base: aws_base
-          match_keys:
+          matchBase: aws_base_network
+          matchKeys:
             name: public
-          match_params:
+          matchParams:
             resource_type: subnet
         sg_database_info:
-          match_base: aws_base
-          match_keys:
+          matchBase: aws_base_network
+          matchKeys:
             name: database
-          match_params:
+          matchParams:
             must_be_one: True
             resource_type: security_group
         sg_bastion_info:
-          match_base: aws_base
-          match_keys:
+          matchBase: aws_base_network
+          matchKeys:
             name: bastion
-          match_params:
+          matchParams:
             must_be_one: True
             resource_type: security_group
         sg_web_info:
-          match_base: aws_base
-          match_keys:
+          matchBase: aws_base_network
+          matchKeys:
             name: web
-          match_params:
+          matchParams:
             must_be_one: True
             resource_type: security_group
         sg_api_info:
-          match_base: aws_base
-          match_keys:
+          matchBase: aws_base_network
+          matchKeys:
             name: api
-          match_params:
+          matchParams:
             must_be_one: True
             resource_type: security_group
 custom:
    vars_set:
-     stack_name: config0-publish:::vars_set
+     platform:
+        stack_ref: network_vars_set 
      arguments: 
        vars_set_name: config0-eval-network
        evaluate: False
-       labels_hash:
-         region: eu-west-1
-         environment: dev
-         purpose: eval-config0
-         area: network
-         cloud: aws
        arguments_hash:
          vpc_name: selector:::vpc_info::name
          vpc_id: selector:::vpc_info::vpc_id
@@ -101,10 +89,9 @@ custom:
        serialization:
          to_base64:
            arguments:
-             - labels_hash
              - arguments_hash
      metadata:
-       matchSelectors:
+       selectors:
          - vpc_info
          - public_route_table
          - private_route_table
