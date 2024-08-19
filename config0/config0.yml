@@ -1,31 +1,29 @@
 global:
-  arguments: 
-    aws_default_region: eu-west-1
-  metadata:   
-    labels:
-       general: 
-         environment: dev
-         purpose: eval-config0
-       infrastructure:
-         cloud: aws
-         product: vpc
-         area: network
-infrastructure:
-  vpc:
-    stack_name: config0-publish:::aws_vpc_simple
-    arguments:
-      vpc_name: eval-config0-vpc-simple
-      eks_cluster: eval-config0-eks
-      publish_to_saas: true
-      cloud_tags_hash:
-        environment: dev
-        purpose: eval-config0
-    spec:
-      serialization:
-        to_base64:
-          arguments:
-            - cloud_tags_hash
-    metadata:
-      labels:
-        - general
-        - infrastructure
+  platform: config0-publish:::platform-eval-config0
+custom:
+   codebuild:
+     platform:
+       stack_ref: add_codebuild_ci
+     arguments:
+       codebuild_name: flask-sample-private
+       git_repo: flask_sample-private
+       git_url: git@github.com:williaumwu/flask_sample-private.git
+       branch: ci
+       ecr_repo_name: flask_sample
+       docker_username: williaumwu
+       docker_registry: ecr
+       slack_channel: opentofu
+       security_group_id: selector:::network_vars::bastion_sg_id
+       subnet_ids: selector:::network_vars::private_subnet_ids
+       vpc_id: selector:::network_vars::vpc_id
+       aws_default_region: eu-west-1
+       ci_environment: config0-eval
+       suffix_id: d645633
+     metadata:
+       inputvars:
+         - reference: docker-token
+           orchestration: true
+         - reference: slack-webhook-hash
+           orchestration: true
+         - reference: github-token
+           orchestration: true
