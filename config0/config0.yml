@@ -10,12 +10,16 @@ global:
 infrastructure:
   env-sql:
     platform:
-      stack_ref: env_sql 
+      stack_ref: env_nosql 
     arguments: 
-      env_name: env-sql
-      db_allocated_storage: 14
-      db_instance_class: db.t3.micro
+      env_name: env-nosql
+      mongodb_num_of_replicas: 3
+      mongodb_instance_type: t3.micro
+      mongodb_disksize: 25
+      mongodb_volume_size: 25
+      mongodb_username: admin123
+      mongodb_password: admin123
+      bastion_destroy: true 
     metadata:
       labels:
         - env_labels
-
