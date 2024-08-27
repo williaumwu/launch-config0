@@ -2,11 +2,6 @@ global:
   platform: config0-publish:::platform-eval-config0
   arguments: 
     aws_default_region: eu-west-1
-  metadata:   
-    labels:
-        env_labels: 
-          environment: dev
-          purpose: config0
 infrastructure:
   env-sql:
     platform:
@@ -20,6 +15,3 @@ infrastructure:
       kafka_num_of_rest: 1
       kafka_num_of_ksql: 1
       bastion_destroy: true 
-    metadata:
-      labels:
-        - env_labels
