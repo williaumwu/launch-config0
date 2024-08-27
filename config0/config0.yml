@@ -1,9 +1,7 @@
 global:
   platform: config0-publish:::platform-eval-config0
-  arguments: 
-    aws_default_region: eu-west-1
 infrastructure:
-  env-sql:
+  env-streaming:
     platform:
       stack_ref: env_streaming 
     arguments: 
