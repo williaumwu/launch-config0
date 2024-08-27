@@ -1,14 +1,7 @@
 global:
   platform: config0-publish:::platform-eval-config0
-  arguments: 
-    aws_default_region: eu-west-1
-  metadata:   
-    labels:
-        env_labels: 
-          environment: dev
-          purpose: config0
 infrastructure:
-  env-sql:
+  env-nosql:
     platform:
       stack_ref: env_nosql 
     arguments: 
@@ -20,6 +13,3 @@ infrastructure:
       mongodb_username: admin123
       mongodb_password: admin123
       bastion_destroy: true 
-    metadata:
-      labels:
-        - env_labels
