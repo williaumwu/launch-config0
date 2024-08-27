@@ -1,12 +1,5 @@
 global:
   platform: config0-publish:::platform-eval-config0
-  arguments: 
-    aws_default_region: eu-west-1
-  metadata:   
-    labels:
-        env_labels: 
-          environment: dev
-          purpose: config0
 infrastructure:
   env-sql:
     platform:
@@ -15,7 +8,3 @@ infrastructure:
       env_name: env-sql
       db_allocated_storage: 14
       db_instance_class: db.t3.micro
-    metadata:
-      labels:
-        - env_labels
-
