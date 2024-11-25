@@ -1,25 +1,6 @@
 global:
   platform: config0-publish:::platform-eval-config0
-  metadata:   
-    labels:
-      infrastructure:
-        provider: aws
-        product: rds
-        area: database
 infrastructure:
-  rds:
-    platform:
-      stack_ref: aws_rds 
-    arguments:
-      aws_default_region: eu-west-1
-      engine: MySQL
-      engine_version: 5.7.44
-      vpc_name: selector:::network_vars::vpc_name  # selector definition injected by platform configs
-      sg_id: selector:::network_vars::db_sg_id  # selector definition injected by platform configs
-      subnet_ids: selector:::network_vars::private_subnet_ids  # selector definition injected by platform configs
-      rds_name: eval-config0-rds
-      allocated_storage: 14
-      instance_class: db.t3.micro
-    metadata:
-      labels:
-        - infrastructure
+   setup_iac_ci:
+     platform:
+       stack_ref: setup_iac_ci
